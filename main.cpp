@@ -1,46 +1,52 @@
-#ifdef WIN32
-#include <windows.h>
-#else
 #include <unistd.h>
-#endif
+#include <wiringPi.h>
+#include "displays/LCD.h"
+#include "reader/MFRC522.h"
+#include "displays/LED.h"
+#include "reader/RFID.h"
 
-void delay(int ms){
-#ifdef WIN32
-  Sleep(ms);
-#else
-  usleep(ms*1000);
-#endif
+#define BUTTON 4
+
+void delay(int ms) {
+    usleep(ms*1000);
 }
 
-#include "MFRC522.h"
 
-int main(){
-  MFRC522 mfrc;
+int main() {
+    bool displayIsLed = true;
 
-  mfrc.PCD_Init();
+    wiringPiSetup() ;
 
-  while(1){
-    // Look for a card
-    if(!mfrc.PICC_IsNewCardPresent())
-      continue;
+    IDisplay *display = new LCD();
+    RFID *reader = new RFID();
 
-    if( !mfrc.PICC_ReadCardSerial())
-      continue;
+    while(1) {
+        // Switch between LCD and LED
+        if (digitalRead(BUTTON)) {
+            display->turnOff();
 
-    // Print UID
-    for(byte i = 0; i < mfrc.uid.size; ++i){
-      if(mfrc.uid.uidByte[i] < 0x10){
-	printf(" 0");
-	printf("%X",mfrc.uid.uidByte[i]);
-      }
-      else{
-	printf(" ");
-	printf("%X", mfrc.uid.uidByte[i]);
-      }
-      
+            if (displayIsLed) {
+                display = new LCD();
+            } else {
+                display = new LED();
+            }
+            displayIsLed = !displayIsLed;
+        }
+
+
+        if (reader->isReading()) {
+
+            display->reading();
+
+            if (reader->success())
+                display->success();
+            else
+                display->error();
+        }
+        delay(500);
+        display->waiting();
+
     }
-    printf("\n");
-    delay(200);
-  }
-  return 0;
+
+    return 0;
 }
