@@ -11,7 +11,7 @@ class RFID {
 public:
     RFID();
     bool isReading();
-    bool success();
+    bool cardIsValid(byte *valid);
 
 private:
     MFRC522 *mfrc;

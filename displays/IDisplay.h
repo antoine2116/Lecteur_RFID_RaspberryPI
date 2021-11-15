@@ -11,7 +11,6 @@ public:
     virtual void waiting();
     virtual void reading();
     virtual void success();
-    virtual void error();
     virtual void turnOff();
 };
 

@@ -11,8 +11,6 @@
 #define LED_G 21
 #define LED_B 28
 
-using namespace std;
-
 LED::LED() {
     pinMode(LED_G, OUTPUT);
     pinMode(LED_R, OUTPUT);
@@ -20,24 +18,21 @@ LED::LED() {
 }
 
 void LED::waiting() {
-    turnOff();
+    digitalWrite(LED_R, LOW);
+    digitalWrite(LED_G, LOW);
     digitalWrite(LED_B, HIGH);
 }
 
 void LED::reading() {
-    turnOff();
-    blink(LED_R, 1, 200);
+    digitalWrite(LED_R, HIGH);
+    digitalWrite(LED_G, LOW);
+    digitalWrite(LED_B, LOW);
 }
 
 void LED::success() {
-    turnOff();
-    blink(LED_G, 1, 50);
-}
-
-
-void LED::error() {
-    turnOff();
-    blink(LED_R, 1, 50);
+    digitalWrite(LED_R, LOW);
+    digitalWrite(LED_G, HIGH);
+    digitalWrite(LED_B, LOW);
 }
 
 void LED::turnOff() {
