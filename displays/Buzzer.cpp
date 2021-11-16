@@ -7,20 +7,23 @@
 
 #define BUZZER 7
 
-Buzzer::Buzzer() = default;
+Buzzer::Buzzer() {
+    pinMode(BUZZER, OUTPUT);
+}
 
 void Buzzer::waiting() {
     digitalWrite(BUZZER, LOW);
 }
 
 void Buzzer::reading() {
-}
-
-void Buzzer::success() {
     digitalWrite(BUZZER, LOW);
     delay(50);
     digitalWrite(BUZZER, HIGH);
     delay(50);
+}
+
+void Buzzer::success() {
+
 }
 
 void Buzzer::turnOff() {

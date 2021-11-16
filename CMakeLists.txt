@@ -4,7 +4,7 @@ project(rat)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
 
-add_executable(guigui main.cpp displays/LCD.cpp displays/LCD.h displays/IDisplay.cpp displays/IDisplay.h displays/LED.cpp displays/LED.h reader/RFID.cpp reader/RFID.h enums/Statut.cpp enums/Statut.h displays/Buzzer.cpp displays/Buzzer.h)
+add_executable(guigui main.cpp displays/LCD.cpp displays/LCD.h displays/IDisplay.cpp displays/IDisplay.h displays/LED.cpp displays/LED.h reader/RFID.cpp reader/RFID.h displays/Buzzer.cpp displays/Buzzer.h addons/GestionPinGPIO.cpp addons/GestionPinGPIO.h addons/GestionPin.cpp addons/GestionPin.h)
 
 find_library(wiringPi_LIB wiringPi)
 
