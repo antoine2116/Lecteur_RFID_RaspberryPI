@@ -10,8 +10,8 @@ class LED: public IDisplay {
 public:
     LED();
     void waiting();
-    void reading();
     void success();
+    void error();
     void turnOff();
 
 private:

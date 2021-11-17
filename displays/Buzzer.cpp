@@ -5,25 +5,29 @@
 #include <wiringPi.h>
 #include "Buzzer.h"
 
-#define BUZZER 7
+#define BUZZER     4
 
 Buzzer::Buzzer() {
     pinMode(BUZZER, OUTPUT);
 }
 
 void Buzzer::waiting() {
-    digitalWrite(BUZZER, LOW);
-}
 
-void Buzzer::reading() {
-    digitalWrite(BUZZER, LOW);
-    delay(50);
-    digitalWrite(BUZZER, HIGH);
-    delay(50);
 }
 
 void Buzzer::success() {
+    for (int i = 0; i < 2; i++) {
+        digitalWrite(BUZZER, HIGH);
+        delay(200);
+        digitalWrite(BUZZER, LOW);
+        delay(200);
+    }
+}
 
+void Buzzer::error() {
+    digitalWrite(BUZZER, HIGH);
+    delay(750);
+    digitalWrite(BUZZER, LOW);
 }
 
 void Buzzer::turnOff() {

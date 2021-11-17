@@ -12,8 +12,8 @@ class Buzzer: public IDisplay  {
 public:
     Buzzer();
     void waiting();
-    void reading();
     void success();
+    void error();
     void turnOff();
 };
 

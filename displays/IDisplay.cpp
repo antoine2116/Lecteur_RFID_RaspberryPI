@@ -9,11 +9,11 @@ void IDisplay::waiting() {
 
 }
 
-void IDisplay::reading() {
+void IDisplay::success() {
 
 }
 
-void IDisplay::success() {
+void IDisplay::error() {
 
 }
 

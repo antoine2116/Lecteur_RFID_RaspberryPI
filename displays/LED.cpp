@@ -7,13 +7,13 @@
 #include <chrono>
 #include "LED.h"
 
-#define LED_R 25
-#define LED_G 21
-#define LED_B 28
+#define LED_R       26
+#define LED_G        5
+#define LED_B       20
 
 LED::LED() {
-    pinMode(LED_G, OUTPUT);
     pinMode(LED_R, OUTPUT);
+    pinMode(LED_G, OUTPUT);
     pinMode(LED_B, OUTPUT);
 }
 
@@ -23,16 +23,18 @@ void LED::waiting() {
     digitalWrite(LED_B, HIGH);
 }
 
-void LED::reading() {
-    digitalWrite(LED_R, HIGH);
-    digitalWrite(LED_G, LOW);
-    digitalWrite(LED_B, LOW);
+void LED::success() {
+    blink(LED_G, 1000, 800);
+    digitalWrite(LED_G, HIGH);
+    delay(750);
+    waiting();
 }
 
-void LED::success() {
-    digitalWrite(LED_R, LOW);
-    digitalWrite(LED_G, HIGH);
-    digitalWrite(LED_B, LOW);
+void LED::error() {
+    blink(LED_R, 500, 250);
+    digitalWrite(LED_R, HIGH);
+    delay(750);
+    waiting();
 }
 
 void LED::turnOff() {
@@ -45,7 +47,7 @@ void LED::blink(int led, int duration, int frequency) {
     turnOff();
 
     bool on = false;
-    for(auto runUntil = std::chrono::system_clock::now() + std::chrono::seconds(duration);
+    for(auto runUntil = std::chrono::system_clock::now() + std::chrono::milliseconds (duration);
         std::chrono::system_clock::now() < runUntil;)
     {
         if (on)
@@ -57,4 +59,6 @@ void LED::blink(int led, int duration, int frequency) {
 
         delay(frequency);
     }
+
+    turnOff();
 }
